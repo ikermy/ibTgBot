@@ -143,33 +143,6 @@ func (k *Kafka) SendToTelegram(message, clientId string, telegramChannel int64) 
 		// Помечаю сообщение как отправленное и присваиваю номер
 		go k.d.SetMsgId(msgId, urlId, clientId)
 	}
-
-	//for attempts := 1; attempts <= 3; attempts++ { // Повторяем попытку отправки сообщения 3 раза
-	//	msg, err := k.s.GetBot().Send(tele.ChatID(telegramChannel),
-	//		messageBody,
-	//		&tele.SendOptions{
-	//			ParseMode:           tele.ModeHTML,
-	//			DisableNotification: true,
-	//		})
-	//
-	//	if err != nil {
-	//		if attempts < 3 && k.re429.MatchString(err.Error()) {
-	//			log.Printf("Failed to send message to Telegram: %s, retrying in %d seconds...", err, 2*attempts)
-	//			time.Sleep(time.Duration(2*attempts) * time.Second)
-	//			continue
-	//		}
-	//		log.Printf("Failed to send message to Telegram after %d attempts: %s", attempts, err)
-	//		log.Printf("Message: %s", messageBody)
-	//	} else {
-	//		go k.d.SetMsgId(msg.ID, urlId, clientId)
-	//		log.Printf("Message sent to Telegram channel: %s, topic: %s, urlId: %s",
-	//			strconv.FormatInt(telegramChannel, 10),
-	//			topic,
-	//			urlId)
-	//		break
-	//	}
-	//	time.Sleep(time.Duration(1*attempts) * time.Second)
-	//}
 }
 
 func (k *Kafka) KafkaRead(clientId, topic string, telegramChannel int64) {
